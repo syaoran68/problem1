@@ -13,9 +13,12 @@ public class BoxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.box_view);
+
         TextView TV = (TextView) findViewById(R.id.textView);
 
+        TV.setText(getIntent().getStringExtra("location"));
 
-        setContentView(R.layout.box_view);
+
     }
 }
