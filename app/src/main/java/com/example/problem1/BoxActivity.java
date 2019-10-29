@@ -3,8 +3,10 @@ package com.example.problem1;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,45 +24,47 @@ public class BoxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //setContentView(R.layout.boxview);
-
-
-
-
 
         Integer layers =  Integer.parseInt(getIntent().getStringExtra("location"));
 
+        LinearLayout layout = new LinearLayout(this);
+        LinearLayout rowLayout = null;
 
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
 
-
-
-        LayoutInflater layoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-
-
-
-
+        layout.setLayoutParams(layoutParams);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER);
 
         for(int i = 1; i <= layers; i++)
         {
-            mBoxView = findViewById(R.id.boxview);
+            rowLayout = new LinearLayout(this);
+            ViewGroup.LayoutParams rowLayoutParams = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+
+            );
+            rowLayout.setLayoutParams(layoutParams);
+            rowLayout.setOrientation(LinearLayout.HORIZONTAL);
+
 
             for(int j = 0; j < i;j++)
             {
-                LinearLayout boxrow = (LinearLayout)findViewById(R.id.boxrows);
+
 
                 Button myButton = new Button(this);
-                myButton.setText("1");
+                myButton.setText("Button");
 
-                boxrow.addView(myButton);
-
-                View myview = layoutInflater.inflate(R.layout.boxrows, null, false);
-
-                mBoxView.addView(myview);
-
+                myButton.setGravity(Gravity.CENTER);
+                rowLayout.addView(myButton);
 
             }
 
+            layout.addView(rowLayout);
         }
-
+        setContentView(layout);
     }
 }
